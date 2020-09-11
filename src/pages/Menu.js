@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-const Menu = () => {
+const Menu = ({ route }) => {
     return (
         <View>
-            <Text>Menu Page</Text>
+            <Text>{route.name} Page</Text>
         </View>
     )
 }
 
-export default Menu
+export default Menu;

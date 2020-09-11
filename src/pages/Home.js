@@ -1,12 +1,6 @@
 import React from 'react';
 import {
-   View,
-   Text,
-   StyleSheet,
-   TextInput,
-   Image,
-   Dimensions,
-   ScrollView,
+   View, Text, StyleSheet, TextInput, Image, Dimensions, Button, TouchableHighlight, TouchableOpacity
 } from 'react-native';
 import gambar from '../assets/img/gambar.jpg';
 import { FlatGrid } from 'react-native-super-grid';
@@ -39,7 +33,7 @@ const category = [
    { name: "All Menus", image: gambar },
 ];
 
-const Home = () => {
+const Home = ({ navigation }) => {
    return (
       <View style={style.container}>
          <View style={style.header}>
@@ -56,15 +50,17 @@ const Home = () => {
                   itemDimension={130}
                   data={category}
                   renderItem={({ item }) => (
-                     <View style={{ alignItems: 'center', borderRadius: 8 }}>
-                        <Image source={item.image} style={{ height: 130, width: 130, borderRadius: 8 }} />
-                        <Text style={{ fontSize: 14 }}>{item.name}</Text>
-                     </View>
+                     <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
+                        <View style={{ alignItems: 'center', borderRadius: 8 }}>
+                           <Image source={item.image} style={{ height: 130, width: 130, borderRadius: 8 }} />
+                           <Text style={{ fontSize: 14 }}>{item.name}</Text>
+                        </View>
+                     </TouchableOpacity>
                   )}
                />
             </View>
             {/* <View style={{ backgroundColor: '#2ecc71', flex: 2 }} /> */}
-            <View style={{ backgroundColor: '#2980b9', flex: 1 }} />
+            {/* <View style={{ backgroundColor: '#2980b9', flex: 1 }} /> */}
          </View>
       </View>
    );
