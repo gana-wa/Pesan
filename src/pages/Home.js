@@ -1,36 +1,14 @@
 import React from 'react';
 import {
-   View, Text, StyleSheet, TextInput, Image, Dimensions, Button, TouchableHighlight, TouchableOpacity
+   View, Text, StyleSheet, TextInput, Image, Dimensions, TouchableOpacity,
 } from 'react-native';
 import gambar from '../assets/img/gambar.jpg';
 import { FlatGrid } from 'react-native-super-grid';
 
-// const CardMenu = () => {
-//    return (
-//       <View
-//          style={{
-//             padding: 12,
-//             backgroundColor: 'blue',
-//             flex: 1,
-//             borderRadius: 8,
-//          }}>
-//          <Image
-//             source={gambar}
-//             style={{ width: 188, height: 107, borderRadius: 8 }}
-//          />
-//          <Text style={{ fontSize: 14, fontWeight: 'bold', marginTop: 16 }}>
-//             Tom Newspaper
-//       </Text>
-//          <Text>Tom & Jerry</Text>
-//          <Text>Usa</Text>
-//       </View>
-//    );
-// };
-
 const category = [
-   { name: "Food", image: { uri: 'https://www.masakapahariini.com/wp-content/uploads/2019/11/shutterstock_1469046305.jpg' } },
-   { name: "Beverage", image: { uri: 'https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2018/04/1.jpg' } },
-   { name: "All Menus", image: gambar },
+   { name: 'Food', image: { uri: 'https://www.masakapahariini.com/wp-content/uploads/2019/11/shutterstock_1469046305.jpg' } },
+   { name: 'Beverage', image: { uri: 'https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2018/04/1.jpg' } },
+   { name: 'All Menus', image: gambar },
 ];
 
 const Home = ({ navigation }) => {
@@ -43,9 +21,9 @@ const Home = ({ navigation }) => {
             />
          </View>
          <View style={style.content}>
-            <View style={{ backgroundColor: '#e74c3c', flex: 2 }} />
-            <View style={{ flex: 5 }} >
-               <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 10 }}>Category</Text>
+            <View style={style.carousel} />
+            <View style={style.listCategory} >
+               <Text style={style.textCategory}>Category</Text>
                <FlatGrid
                   itemDimension={130}
                   data={category}
@@ -66,7 +44,7 @@ const Home = ({ navigation }) => {
    );
 };
 
-const { height } = Dimensions.get("screen")
+const { height } = Dimensions.get('screen');
 const style = StyleSheet.create({
    container: {
       height: height,
@@ -95,6 +73,18 @@ const style = StyleSheet.create({
    content: {
       flex: 10,
       // marginHorizontal: 10,
+   },
+   carousel: {
+      backgroundColor: '#e74c3c',
+      flex: 2,
+   },
+   listCategory: {
+      flex: 5,
+   },
+   textCategory: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      marginLeft: 10,
    },
 });
 
