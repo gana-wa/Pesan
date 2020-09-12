@@ -1,23 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, Image, Button, View, TouchableHighlight, Pressable } from 'react-native';
+import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, Image, View, TouchableHighlight, Pressable } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchMenus } from '../redux/actions/menu';
+import { fetchMenus, addToCart } from '../redux/actions/menu';
 
-const Item = ({ item, onPress, style }) => (
-   <>
-      <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
-         <Image style={styles.menuImage} source={{ uri: item.image }} />
-         <View style={styles.titleWrapper}>
-            <Text style={styles.title}>{item.product_name}</Text>
-            <Text style={styles.desc}>Deskripsi produk. Ini hanyalah sebagai contoh deskripsi produk</Text>
-            <Pressable style={styles.buttonAdd} onPress={() => alert('Item added to cart')}>
-               <Text style={styles.buttonAddText}>Beli</Text>
-            </Pressable>
-         </View>
-      </TouchableOpacity>
-   </>
-);
-
+const Item = ({ item, onPress, style }) => {
+   const dispatch = useDispatch();
+   return (
+      <>
+         <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
+            <Image style={styles.menuImage} source={{ uri: item.image }} />
+            <View style={styles.titleWrapper}>
+               <Text style={styles.title}>{item.product_name}</Text>
+               <Text style={styles.desc}>Deskripsi produk. Ini hanyalah sebagai contoh deskripsi produk</Text>
+               <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+                  {/* <Pressable style={styles.buttonAdd} onPress={() => dispatch(addToCart(
+                     item.product_id,
+                     item.product_name,
+                     item.price,
+                     item.image))}>
+                     <Text style={styles.buttonAddText}>Beli</Text>
+                  </Pressable> */}
+                  <View style={styles.buttonCounter} >
+                     <Pressable style={styles.buttonCounterText} onPress={() => alert("DECREASE")}>
+                        <Text style={styles.buttonCounterText}>-</Text>
+                     </Pressable>
+                     <Text style={styles.CounterText}>10</Text>
+                     <Pressable style={styles.buttonCounterText}>
+                        <Text style={styles.buttonCounterText} onPress={() => alert("INCREASE")}>+</Text>
+                     </Pressable>
+                  </View>
+               </View>
+            </View>
+         </TouchableOpacity>
+      </>
+   );
+};
 
 const Menu = () => {
    const menu = useSelector(state => state.menu.menus);
@@ -88,13 +105,35 @@ const styles = StyleSheet.create({
    buttonAdd: {
       borderRadius: 5,
       backgroundColor: '#27ae60',
-      width: 80,
+      width: 90,
       height: 30,
       justifyContent: 'center',
       alignItems: 'center',
    },
    buttonAddText: {
       color: 'white',
+      fontWeight: 'bold',
+   },
+   buttonCounter: {
+      flexDirection: 'row',
+      borderRadius: 5,
+      backgroundColor: '#fff',
+      borderColor: '#27ae60',
+      borderWidth: 0.3,
+      width: 90,
+      height: 30,
+      justifyContent: 'space-around',
+      alignItems: 'center',
+   },
+   CounterText: {
+      color: '#27ae60',
+      fontWeight: 'bold',
+   },
+   buttonCounterText: {
+      width: 30,
+      textAlign: 'center',
+      fontSize: 20,
+      color: '#27ae60',
       fontWeight: 'bold',
    },
 });
