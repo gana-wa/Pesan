@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 export const fetchAllMenu = () => {
-    return Axios.get('http://192.168.1.110:8000/products');
+    return Axios.get('http://192.168.1.107:8000/products');
 };
 
 export const fetchAllHistory = () => {

@@ -3,11 +3,13 @@ import {
    View, Text, StyleSheet, TextInput, Image, Dimensions, TouchableOpacity,
 } from 'react-native';
 import gambar from '../assets/img/gambar.jpg';
+import soto from '../assets/img/soto.jpg';
+import bev from '../assets/img/bev.jpg';
 import { FlatGrid } from 'react-native-super-grid';
 
 const category = [
-   { name: 'Food', image: { uri: 'https://www.masakapahariini.com/wp-content/uploads/2019/11/shutterstock_1469046305.jpg' } },
-   { name: 'Beverage', image: { uri: 'https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2018/04/1.jpg' } },
+   { name: 'Food', image: soto },
+   { name: 'Beverage', image: bev },
    { name: 'All Menus', image: gambar },
 ];
 
