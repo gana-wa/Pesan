@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, Image, View, Pressable } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchMenus, addToCart, increaseQuantityCreator, decreaseQuantityCreator } from '../redux/actions/menu';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Item = ({ item, style }) => {
    const stateMenu = useSelector(state => state.menu);
@@ -52,6 +53,14 @@ const Menu = () => {
       dispatch(fetchMenus());
    }, [dispatch]);
 
+   let totalItem = stateMenu.carts.reduce((total, item) => {
+      return total + item.quantity;
+   }, 0);
+
+   let totalPrice = stateMenu.carts.reduce((total, item) => {
+      return total + (item.price * item.quantity);
+   }, 0);
+
    const [selectedId, setSelectedId] = useState(null);
 
    const renderItem = ({ item }) => {
@@ -71,6 +80,19 @@ const Menu = () => {
             keyExtractor={(item) => item.product_id.toString()}
             extraData={selectedId}
          />
+         {stateMenu.carts.length ? (
+            <Pressable>
+               <View style={styles.cartButton}>
+                  <View>
+                     <Text style={styles.cartButtonText}>{totalItem > 1 ? (`${totalItem} items`) : (`${totalItem} item`)}</Text>
+                     <Text style={styles.cartButtonText}>{`Total: ${totalPrice.toLocaleString()}`}</Text>
+                  </View>
+                  <View>
+                     <Icon name="basket" color="#fff" size={30} />
+                  </View>
+               </View>
+            </Pressable>
+         ) : (null)}
       </SafeAreaView>
    );
 };
@@ -153,6 +175,24 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       fontSize: 20,
       color: '#27ae60',
+      fontWeight: 'bold',
+   },
+   cartButton: {
+      backgroundColor: '#27ae60',
+      height: 50,
+      marginBottom: 20,
+      marginHorizontal: 16,
+      borderRadius: 5,
+      paddingHorizontal: 20,
+      justifyContent: 'center',
+      elevation: 5,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+   },
+   cartButtonText: {
+      color: 'white',
+      fontSize: 14,
       fontWeight: 'bold',
    },
 });
