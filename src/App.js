@@ -8,6 +8,7 @@ import reduxStore from './redux/store';
 //pages
 import Home from './pages/Home';
 import Menu from './pages/Menu';
+import Cart from './pages/Cart';
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ const App = () => {
         <Stack.Navigator>
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Menu" component={Menu} />
+          <Stack.Screen name="Cart" component={Cart} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

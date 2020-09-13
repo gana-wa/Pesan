@@ -45,7 +45,7 @@ const Item = ({ item, style }) => {
    );
 };
 
-const Menu = () => {
+const Menu = ({ navigation }) => {
    const stateMenu = useSelector(state => state.menu);
    const menu = stateMenu.menus;
    const dispatch = useDispatch();
@@ -81,14 +81,14 @@ const Menu = () => {
             extraData={selectedId}
          />
          {stateMenu.carts.length ? (
-            <Pressable>
+            <Pressable onPress={() => navigation.navigate('Cart')}>
                <View style={styles.cartButton}>
                   <View>
                      <Text style={styles.cartButtonText}>{totalItem > 1 ? (`${totalItem} items`) : (`${totalItem} item`)}</Text>
                      <Text style={styles.cartButtonText}>{`Total: ${totalPrice.toLocaleString()}`}</Text>
                   </View>
                   <View>
-                     <Icon name="basket" color="#fff" size={30} />
+                     <Icon name="basket" color="#fff" size={25} />
                   </View>
                </View>
             </Pressable>
@@ -184,7 +184,6 @@ const styles = StyleSheet.create({
       marginHorizontal: 16,
       borderRadius: 5,
       paddingHorizontal: 20,
-      justifyContent: 'center',
       elevation: 5,
       flexDirection: 'row',
       justifyContent: 'space-between',

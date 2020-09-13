@@ -2,10 +2,11 @@ import React from 'react';
 import {
    View, Text, StyleSheet, TextInput, Image, Dimensions, TouchableOpacity,
 } from 'react-native';
+import { FlatGrid } from 'react-native-super-grid';
+
 import gambar from '../assets/img/gambar.jpg';
 import soto from '../assets/img/soto.jpg';
 import bev from '../assets/img/bev.jpg';
-import { FlatGrid } from 'react-native-super-grid';
 
 const category = [
    { name: 'Food', image: soto },
@@ -59,9 +60,6 @@ const style = StyleSheet.create({
       justifyContent: 'center',
       borderBottomWidth: 1,
       borderBottomColor: 'grey',
-   },
-   textHeader: {
-      // textAlign: 'center',
    },
    searchHeader: {
       // paddingVertical: 5,
