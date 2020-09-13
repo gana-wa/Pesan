@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, Image, View, TouchableHighlight, Pressable } from 'react-native';
+import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, Image, View, Pressable } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchMenus, addToCart } from '../redux/actions/menu';
+import { fetchMenus, addToCart, increaseQuantityCreator, decreaseQuantityCreator } from '../redux/actions/menu';
 
 const Item = ({ item, onPress, style }) => {
+   const stateMenu = useSelector(state => state.menu);
    const dispatch = useDispatch();
+   const index = stateMenu.carts.findIndex(inCart => {
+      return inCart.id === item.product_id;
+   });
    return (
       <>
          <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
@@ -12,23 +16,43 @@ const Item = ({ item, onPress, style }) => {
             <View style={styles.titleWrapper}>
                <Text style={styles.title}>{item.product_name}</Text>
                <Text style={styles.desc}>Deskripsi produk. Ini hanyalah sebagai contoh deskripsi produk</Text>
-               <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+               <Text style={styles.price}>{`Rp ${item.price.toLocaleString()}`}</Text>
+               <View style={styles.buttonContainer}>
+                  {index >= 0 ? (
+                     <View style={styles.buttonCounter} >
+                        <Pressable style={styles.buttonCounterText} onPress={() => dispatch(decreaseQuantityCreator(item.product_id))}>
+                           <Text style={styles.buttonCounterText}>-</Text>
+                        </Pressable>
+                        <Text style={styles.CounterText}>{stateMenu.carts[index].quantity}</Text>
+                        <Pressable style={styles.buttonCounterText}>
+                           <Text style={styles.buttonCounterText} onPress={() => dispatch(increaseQuantityCreator(item.product_id))}>+</Text>
+                        </Pressable>
+                     </View>
+                  ) : (
+                        <Pressable style={styles.buttonAdd} onPress={() => dispatch(addToCart(
+                           item.product_id,
+                           item.product_name,
+                           item.price,
+                           item.image))}>
+                           <Text style={styles.buttonAddText}>Beli</Text>
+                        </Pressable>
+                     )}
                   {/* <Pressable style={styles.buttonAdd} onPress={() => dispatch(addToCart(
-                     item.product_id,
-                     item.product_name,
-                     item.price,
-                     item.image))}>
-                     <Text style={styles.buttonAddText}>Beli</Text>
-                  </Pressable> */}
-                  <View style={styles.buttonCounter} >
-                     <Pressable style={styles.buttonCounterText} onPress={() => alert("DECREASE")}>
+                              item.product_id,
+                              item.product_name,
+                              item.price,
+                              item.image))}>
+                  <Text style={styles.buttonAddText}>Beli</Text>
+               </Pressable>
+               <View style={styles.buttonCounter} >
+                     <Pressable style={styles.buttonCounterText} onPress={() => alert('DECREASE')}>
                         <Text style={styles.buttonCounterText}>-</Text>
                      </Pressable>
                      <Text style={styles.CounterText}>10</Text>
                      <Pressable style={styles.buttonCounterText}>
-                        <Text style={styles.buttonCounterText} onPress={() => alert("INCREASE")}>+</Text>
+                        <Text style={styles.buttonCounterText} onPress={() => alert('INCREASE')}>+</Text>
                      </Pressable>
-                  </View>
+                  </View> */}
                </View>
             </View>
          </TouchableOpacity>
@@ -37,18 +61,17 @@ const Item = ({ item, onPress, style }) => {
 };
 
 const Menu = () => {
-   const menu = useSelector(state => state.menu.menus);
+   const stateMenu = useSelector(state => state.menu);
+   const menu = stateMenu.menus;
    const dispatch = useDispatch();
    useEffect(() => {
       dispatch(fetchMenus());
    }, [dispatch]);
-   // console.log(menu);
 
    const [selectedId, setSelectedId] = useState(null);
 
    const renderItem = ({ item }) => {
       const backgroundColor = item.product_id === selectedId ? '#6e3b6e' : '#fff';
-
       return (
          <Item
             item={item}
@@ -97,10 +120,18 @@ const styles = StyleSheet.create({
       color: '#95a5a6',
       textAlign: 'justify',
    },
+   price: {
+      fontSize: 14,
+      fontWeight: 'bold',
+   },
    menuImage: {
       width: 100,
       height: 100,
       borderRadius: 10,
+   },
+   buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
    },
    buttonAdd: {
       borderRadius: 5,
@@ -118,15 +149,20 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       borderRadius: 5,
       backgroundColor: '#fff',
-      borderColor: '#27ae60',
-      borderWidth: 0.3,
+      // shadow android
+      elevation: 3,
+      //shadow ios
+      shadowColor: 'black',
+      shadowOffset: { width: 5, height: 5 },
+      shadowOpacity: 1,
+      //
       width: 90,
       height: 30,
       justifyContent: 'space-around',
       alignItems: 'center',
    },
    CounterText: {
-      color: '#27ae60',
+      color: 'black',
       fontWeight: 'bold',
    },
    buttonCounterText: {

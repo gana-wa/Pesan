@@ -1,7 +1,9 @@
 import Axios from 'axios';
+// import Config from 'react-native-config';
 
 export const fetchAllMenu = () => {
-    return Axios.get('http://192.168.1.107:8000/products');
+    // return Axios.get(`${Config.API_ADDRESS}/products`);
+    return Axios.get('http://192.168.1.106:8000/products');
 };
 
 export const fetchAllHistory = () => {
