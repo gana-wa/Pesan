@@ -1,7 +1,8 @@
 import React from 'react';
+import Axios from 'axios';
 import { View, Text, TextInput, StyleSheet, Dimensions, Image, Pressable, FlatList, SafeAreaView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { increaseQuantityCreator, decreaseQuantityCreator } from '../redux/actions/menu';
+import { increaseQuantityCreator, decreaseQuantityCreator, clearCartCreator } from '../redux/actions/menu';
 
 const Item = ({ item, style }) => {
    const dispatch = useDispatch();
@@ -29,8 +30,12 @@ const Item = ({ item, style }) => {
    );
 };
 
-const Cart = () => {
+const Cart = ({ navigation }) => {
    const stateMenu = useSelector(state => state.menu);
+
+   const dispatch = useDispatch();
+
+   let invoice = new Date().getTime();
 
    let totalPrice = stateMenu.carts.reduce((total, item) => {
       return total + (item.price * item.quantity);
@@ -41,6 +46,37 @@ const Cart = () => {
    let totalAll = stateMenu.carts.reduce((total, item) => {
       return total + (item.price * item.quantity * 0.1) + (item.price * item.quantity) + delivFee;
    }, 0);
+
+   const handleInsertOrder = () => {
+
+      const transactionItem = stateMenu.carts.map((item) => {
+         return {
+            product_id: item.id,
+            quantity: item.quantity,
+         };
+      });
+
+      const localhost = 'http://192.168.1.29:8000';
+
+      const URLString = `${localhost}/transaction`;
+
+      const data = {
+         invoice: invoice,
+         // cashier: stateMenu.auth.user.username,
+         cashier: 'Gana',
+         total: totalAll,
+         transaction: transactionItem,
+      };
+      // console.log(data);
+      Axios.post(URLString, data)
+         .then((res) => {
+            // console.log(res);
+            dispatch(clearCartCreator());
+            navigation.navigate('Home');
+         })
+         .catch(err => console.log(err));
+   };
+
 
    const renderItem = ({ item }) => {
       return (
@@ -97,7 +133,7 @@ const Cart = () => {
                <Text style={styles.bottomTotalText}>{totalAll.toLocaleString()}</Text>
                <Text style={styles.cashText}>Cash</Text>
             </View>
-            <Pressable >
+            <Pressable onPress={() => handleInsertOrder()} >
                <View style={styles.orderButton}>
                   <View>
                      <Text style={styles.orderButtonText}>Pesan</Text>

@@ -29,7 +29,8 @@ const Home = ({ navigation }) => {
          </View>
          <View style={style.content}>
             <View style={style.carousel}>
-               <Text style={style.carouselText}>Space disewakan</Text>
+               <Text style={style.carouselText}>Tempat Carousel</Text>
+               <Text style={style.carouselText2}>(Coming soon)</Text>
             </View>
             <View style={style.listCategoryContainer} >
                <Text style={style.textCategory}>Category</Text>
@@ -91,6 +92,12 @@ const style = StyleSheet.create({
       color: '#fff',
       fontSize: 18,
       textAlign: 'center',
+   },
+   carouselText2: {
+      color: '#fff',
+      fontSize: 14,
+      textAlign: 'center',
+      fontStyle: 'italic',
    },
    cardCategory: {
       alignItems: 'center',
