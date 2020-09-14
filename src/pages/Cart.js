@@ -92,7 +92,7 @@ const Cart = () => {
                </View>
             }
          />
-         <View style={{ backgroundColor: 'white', borderTopWidth: 0.3, }}>
+         <View style={styles.bottomOrderContainer}>
             <View style={{ flexDirection: 'row' }}>
                <Text style={styles.bottomTotalText}>{totalAll.toLocaleString()}</Text>
                <Text style={styles.cashText}>Cash</Text>
@@ -233,6 +233,19 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
    },
    // order bottom
+   bottomOrderContainer: {
+      backgroundColor: 'white',
+      // borderTopWidth: 0.3,
+      shadowColor: '#000',
+      shadowOffset: {
+         width: 0,
+         height: 7,
+      },
+      shadowOpacity: 0.43,
+      shadowRadius: 9.51,
+
+      elevation: 15,
+   },
    orderButton: {
       backgroundColor: '#27ae60',
       height: 50,

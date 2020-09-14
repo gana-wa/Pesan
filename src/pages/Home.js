@@ -7,6 +7,7 @@ import { FlatGrid } from 'react-native-super-grid';
 import gambar from '../assets/img/gambar.jpg';
 import soto from '../assets/img/soto.jpg';
 import bev from '../assets/img/bev.jpg';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const category = [
    { name: 'Food', image: soto },
@@ -22,19 +23,24 @@ const Home = ({ navigation }) => {
                style={style.searchHeader}
                placeholder={'Mau makan apa hari ini?'}
             />
+            <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+               <Icon name="user" size={30} color="#7f8c8d" />
+            </TouchableOpacity>
          </View>
          <View style={style.content}>
-            <View style={style.carousel} />
-            <View style={style.listCategory} >
+            <View style={style.carousel}>
+               <Text style={style.carouselText}>Space disewakan</Text>
+            </View>
+            <View style={style.listCategoryContainer} >
                <Text style={style.textCategory}>Category</Text>
                <FlatGrid
                   itemDimension={130}
                   data={category}
                   renderItem={({ item }) => (
                      <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
-                        <View style={{ alignItems: 'center', borderRadius: 8 }}>
-                           <Image source={item.image} style={{ height: 130, width: 130, borderRadius: 8 }} />
-                           <Text style={{ fontSize: 14 }}>{item.name}</Text>
+                        <View style={style.cardCategory}>
+                           <Image source={item.image} style={style.cardCategoryImg} />
+                           <Text style={style.cardCategoryText}>{item.name}</Text>
                         </View>
                      </TouchableOpacity>
                   )}
@@ -55,16 +61,18 @@ const style = StyleSheet.create({
    },
    header: {
       flex: 1,
-      // backgroundColor: '#bdc3c7',
+      backgroundColor: '#fff',
+      flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'space-between',
+      paddingHorizontal: 20,
       borderBottomWidth: 1,
       borderBottomColor: 'grey',
    },
    searchHeader: {
       // paddingVertical: 5,
       height: '70%',
-      width: '90%',
+      width: '85%',
       borderColor: 'gray',
       borderWidth: 1,
       borderRadius: 5,
@@ -77,8 +85,26 @@ const style = StyleSheet.create({
    carousel: {
       backgroundColor: '#e74c3c',
       flex: 2,
+      justifyContent: 'center',
    },
-   listCategory: {
+   carouselText: {
+      color: '#fff',
+      fontSize: 18,
+      textAlign: 'center',
+   },
+   cardCategory: {
+      alignItems: 'center',
+      borderRadius: 8,
+   },
+   cardCategoryImg: {
+      height: 130,
+      width: 130,
+      borderRadius: 8,
+   },
+   cardCategoryText: {
+      fontSize: 14,
+   },
+   listCategoryContainer: {
       flex: 5,
    },
    textCategory: {
