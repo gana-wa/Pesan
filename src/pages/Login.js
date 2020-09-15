@@ -40,7 +40,7 @@ const Login = ({ navigation }) => {
    return (
       <View style={styles.container}>
          <View style={styles.containerLogin}>
-            <Pressable onPress={() => navigation.navigate('Home')}>
+            <Pressable onPress={() => navigation.navigate('Register')}>
                <View style={styles.imageLoginContainer}>
                   <Text style={{ color: '#fff' }}>Image place</Text>
                </View>

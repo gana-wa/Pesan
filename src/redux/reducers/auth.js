@@ -71,9 +71,16 @@ const authReducer = (state = intialState, action) => {
             if (action.payload.data.isSuccess) {
                 return {
                     ...state,
-                    isLoggedIn: false,
+                    isLoggedIn: true,
                     isSuccess: true,
                     isPending: false,
+                    user: {
+                        ...state.user,
+                        name: action.payload.data.data.name,
+                        telp: action.payload.data.data.telp,
+                        level_id: action.payload.data.data.level_id,
+                        token: action.payload.data.data.token,
+                    },
                     msg: `${action.payload.data.data.msg}, now you can login`,
                 };
             } else {
