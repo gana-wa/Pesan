@@ -6,11 +6,11 @@ const intialState = {
     isSuccess: false,
     isRejected: false,
     user: {
-        username: "",
+        username: '',
         level_id: null,
-        token: ""
+        token: '',
     },
-    msg: "",
+    msg: '',
 };
 
 const authReducer = (state = intialState, action) => {
@@ -19,14 +19,14 @@ const authReducer = (state = intialState, action) => {
             return {
                 ...state,
                 isPeding: true,
-                msg: "...Loading",
+                msg: '...Loading',
             };
         case actions.LOGGED_IN + actions.REJECTED:
             return {
                 ...state,
                 isRejected: true,
                 isPending: false,
-                msg: "Login failed..!",
+                msg: 'Login failed..!',
             };
         case actions.LOGGED_IN + actions.FULFILLED:
             if (action.payload.data.isSuccess) {
@@ -41,7 +41,7 @@ const authReducer = (state = intialState, action) => {
                         level_id: action.payload.data.data.level_id,
                         token: action.payload.data.data.token,
                     },
-                    msg: action.payload.data.data.msg
+                    msg: action.payload.data.data.msg,
                 };
             } else {
                 return {
@@ -56,7 +56,7 @@ const authReducer = (state = intialState, action) => {
             return {
                 ...state,
                 isPeding: true,
-                msg: "...Loading",
+                msg: '...Loading',
             };
         case actions.REGISTERED + actions.REJECTED:
             return {
@@ -72,7 +72,7 @@ const authReducer = (state = intialState, action) => {
                     isLoggedIn: false,
                     isSuccess: true,
                     isPending: false,
-                    msg: `${action.payload.data.data.msg}, now you can login`
+                    msg: `${action.payload.data.data.msg}, now you can login`,
                 };
             } else {
                 return {

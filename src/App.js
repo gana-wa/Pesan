@@ -10,6 +10,8 @@ import Home from './pages/Home';
 import Menu from './pages/Menu';
 import Cart from './pages/Cart';
 import Profile from './pages/Profile';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 const Stack = createStackNavigator();
 
@@ -18,7 +20,9 @@ const App = () => {
     <Provider store={reduxStore}>
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="Menu" component={Menu} />
           <Stack.Screen name="Cart" component={Cart} />
           <Stack.Screen name="Profile" component={Profile} />

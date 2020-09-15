@@ -1,7 +1,7 @@
 import Axios from 'axios';
 // import Config from 'react-native-config';
 
-const localhost = 'http://192.168.1.29:8000';
+const localhost = 'http://192.168.1.137:8000';
 
 export const fetchAllMenu = () => {
     // return Axios.get(`${Config.API_ADDRESS}/products`);
@@ -17,9 +17,9 @@ export const showHistory = () => {
 };
 
 export const login = (data) => {
-    return Axios.post(`${process.env.REACT_APP_API_ADDRESS}/auth/login`, data);
+    return Axios.post(`${localhost}/auth/login`, data);
 };
 
 export const register = (data) => {
-    return Axios.post(`${process.env.REACT_APP_API_ADDRESS}/auth/register`, data);
+    return Axios.post(`${localhost}/auth/register`, data);
 };
