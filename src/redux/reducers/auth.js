@@ -6,7 +6,8 @@ const intialState = {
     isSuccess: false,
     isRejected: false,
     user: {
-        username: '',
+        name: '',
+        telp: '',
         level_id: null,
         token: '',
     },
@@ -37,7 +38,8 @@ const authReducer = (state = intialState, action) => {
                     isPending: false,
                     user: {
                         ...state.user,
-                        username: action.payload.data.data.username,
+                        name: action.payload.data.data.name,
+                        telp: action.payload.data.data.telp,
                         level_id: action.payload.data.data.level_id,
                         token: action.payload.data.data.token,
                     },

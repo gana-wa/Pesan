@@ -1,16 +1,20 @@
 import React from 'react';
 import { Container, Content, List, ListItem, Text } from 'native-base';
 import { StyleSheet, View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 const Profile = () => {
+    const stateUser = useSelector(
+        (state) => state.auth.user
+    );
     return (
         <Container>
             <View style={styles.profileContainer}>
                 <View style={styles.profileInitialIcon}>
-                    <Text style={styles.profileInitialText}>G</Text>
+                    <Text style={styles.profileInitialText}>{(stateUser.name).slice(0, 1).toUpperCase()}</Text>
                 </View>
-                <Text style={styles.nameText}>Gana W A</Text>
-                <Text style={styles.phoneText}>0812345678910</Text>
+                <Text style={styles.nameText}>{stateUser.name}</Text>
+                <Text style={styles.phoneText}>{stateUser.telp}</Text>
             </View>
             <Content>
                 <List>
