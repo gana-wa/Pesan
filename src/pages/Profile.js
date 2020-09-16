@@ -37,15 +37,15 @@ const Profile = ({ navigation }) => {
             </View>
             <Content>
                 <List>
-                    <ListItem>
+                    <ListItem onPress={() => navigation.navigate('Ubah Profil')}>
                         <Text>Ubah Profil</Text>
                     </ListItem>
-                    <ListItem>
+                    <ListItem onPress={() => navigation.navigate('Riwayat Pesanan')}>
                         <Text>Riwayat pesanan</Text>
                     </ListItem>
-                    <ListItem>
+                    {/* <ListItem>
                         <Text>Bantuan</Text>
-                    </ListItem>
+                    </ListItem> */}
                 </List>
             </Content>
             <Pressable onPress={handleLogOut}>

@@ -8,12 +8,12 @@ export const fetchAllMenu = () => {
     return Axios.get(`${localhost}/products`);
 };
 
-export const fetchAllHistory = () => {
-    return Axios.get(`${process.env.REACT_APP_API_ADDRESS}/history`);
+export const fetchAllHistory = (name) => {
+    return Axios.get(`${localhost}/history/name/${name}`);
 };
 
-export const showHistory = () => {
-    return Axios.get(`${process.env.REACT_APP_API_ADDRESS}/history/history/show`);
+export const showHistory = (invoice) => {
+    return Axios.get(`${localhost}/history/invoice/${invoice}`);
 };
 
 export const login = (data) => {

@@ -6,7 +6,7 @@ const intialState = {
     isPending: false,
     isFulfilled: false,
     isRejected: false,
-}
+};
 
 const historyReducer = (state = intialState, action) => {
     switch (action.type) {

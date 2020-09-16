@@ -1,16 +1,16 @@
 import * as actions from './actionTypes';
 import * as api from '../../utils/linkAPI';
 
-export const fetchHistoryCreator = () => {
+export const fetchHistoryCreator = (name) => {
     return {
         type: actions.HISTORY_FETCHED,
-        payload: api.fetchAllHistory()
-    }
+        payload: api.fetchAllHistory(name),
+    };
 };
 
-export const showHistoryCreator = () => {
+export const showHistoryCreator = (invoice) => {
     return {
         type: actions.SHOW_HISTORY,
-        payload: api.showHistory()
-    }
-}
+        payload: api.showHistory(invoice),
+    };
+};

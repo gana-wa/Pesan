@@ -14,6 +14,7 @@ import Profile from './pages/Profile';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import History from './pages/History';
+import ProfileEdit from './pages/ProfileEdit';
 
 const { persistor, store } = configureStore();
 
@@ -31,7 +32,8 @@ const App = () => {
             <Stack.Screen name="Menu" component={Menu} />
             <Stack.Screen name="Cart" component={Cart} />
             <Stack.Screen name="Profile" component={Profile} />
-            <Stack.Screen name="History" component={History} />
+            <Stack.Screen name="Riwayat Pesanan" component={History} />
+            <Stack.Screen name="Ubah Profil" component={ProfileEdit} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

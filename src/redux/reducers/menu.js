@@ -3,11 +3,11 @@ import * as actions from '../actions/actionTypes';
 const intialState = {
    menus: [],
    carts: [],
-   cashier: "",
+   cashier: '',
    isPending: false,
    isFulfilled: false,
    isRejected: false,
-}
+};
 
 const menuReducer = (state = intialState, action) => {
    let newCart = [...state.carts];
@@ -37,8 +37,8 @@ const menuReducer = (state = intialState, action) => {
       case actions.SEARCH_MENU:
          return {
             ...state,
-            menus: action.payload.key
-         }
+            menus: action.payload.key,
+         };
       // CART
       case actions.MENU_TO_CART:
          const index = state.carts.findIndex((item) => {
@@ -51,32 +51,32 @@ const menuReducer = (state = intialState, action) => {
             newMenu[indexMenu] = {
                ...newMenu[indexMenu],
                selected: false,
-            }
+            };
             state.carts.splice(index, 1);//hapus data pada array
             return {
                ...state,
                carts: state.carts,
                menus: newMenu,
-            }
+            };
          } else {
             newMenu[indexMenu] = {
                ...newMenu[indexMenu],
                selected: true,
-            }
+            };
             return {
                ...state,
                carts: state.carts.concat(action.payload),
                menus: newMenu,
-            }
-         };
+            };
+         }
       case actions.QUANTITY_INCREASED:
          const indexQtyInc = state.carts.findIndex((item) => {
             return action.payload.id === item.id;
          });
          newCart[indexQtyInc] = {
             ...newCart[indexQtyInc],
-            quantity: state.carts[indexQtyInc].quantity + 1
-         }
+            quantity: state.carts[indexQtyInc].quantity + 1,
+         };
          return {
             ...state,
             carts: newCart,
@@ -87,20 +87,20 @@ const menuReducer = (state = intialState, action) => {
          });
          newCart[indexQtyDec] = {
             ...newCart[indexQtyDec],
-            quantity: state.carts[indexQtyDec].quantity - 1
-         }
+            quantity: state.carts[indexQtyDec].quantity - 1,
+         };
          if (newCart[indexQtyDec].quantity === 0) {
             state.carts.splice(indexQtyDec, 1);//hapus data pada array
             return {
                ...state,
-               carts: state.carts
-            }
+               carts: state.carts,
+            };
          } else {
             return {
                ...state,
                carts: newCart,
             };
-         };
+         }
       case actions.CLEAR_CART:
          return {
             ...state,
@@ -109,6 +109,6 @@ const menuReducer = (state = intialState, action) => {
       default:
          return state;
    }
-}
+};
 
 export default menuReducer;

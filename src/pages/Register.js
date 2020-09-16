@@ -38,9 +38,9 @@ const Register = ({ navigation }) => {
          <View style={styles.containerLogin}>
             <Text style={styles.loginBanerText}>Buat daftar, lengkapi data dirimu di bawah ya</Text>
             <Text style={styles.labelText}>Nama Lengkap</Text>
-            <TextInput style={styles.loginFormText} placeholder={'Cth: Broto'} onChangeText={text => setFormResponse({ ...formRespone, name: text })} />
+            <TextInput style={styles.loginFormText} placeholder={'Nama harus diisi'} onChangeText={text => setFormResponse({ ...formRespone, name: text })} />
             <Text style={styles.labelText}>Nomor HP</Text>
-            <TextInput maxLength={12} keyboardType={'numeric'} textContentType={'telephoneNumber'} style={styles.loginFormText} placeholder={'Cth: 081234567'} onChangeText={text => setFormResponse({ ...formRespone, telp: text })} />
+            <TextInput maxLength={12} keyboardType={'numeric'} textContentType={'telephoneNumber'} style={styles.loginFormText} placeholder={'Cth: 081234567 (min 7 digit)'} onChangeText={text => setFormResponse({ ...formRespone, telp: text })} />
             <Text style={styles.labelText}>Password</Text>
             <TextInput style={styles.loginFormText} onChangeText={text => setFormResponse({ ...formRespone, password: text })} secureTextEntry placeholder={'Password minimal 3 karakter'} />
             <Text>{status}</Text>
