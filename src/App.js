@@ -3,7 +3,8 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider } from 'react-redux';
-import reduxStore from './redux/store';
+import configureStore from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 //pages
 import Home from './pages/Home';
@@ -12,22 +13,28 @@ import Cart from './pages/Cart';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import History from './pages/History';
+
+const { persistor, store } = configureStore();
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <Provider store={reduxStore}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Menu" component={Menu} />
-          <Stack.Screen name="Cart" component={Cart} />
-          <Stack.Screen name="Profile" component={Profile} />
-        </Stack.Navigator>
-      </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Register" component={Register} />
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Menu" component={Menu} />
+            <Stack.Screen name="Cart" component={Cart} />
+            <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen name="History" component={History} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 };
