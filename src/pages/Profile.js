@@ -1,12 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Content, List, ListItem, Text } from 'native-base';
-import { StyleSheet, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { LoggedOut } from '../redux/actions/auth';
+import { clearCartCreator } from '../redux/actions/menu';
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
+    const [logOut, setLogOut] = useState(false);
+
     const stateUser = useSelector(
         (state) => state.auth.user
     );
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (logOut) {
+            dispatch(LoggedOut());
+            dispatch(clearCartCreator());
+            setLogOut(false);
+            navigation.navigate('Login');
+        }
+    }, [dispatch, logOut, navigation]);
+
+    const handleLogOut = () => {
+        setLogOut(true);
+    };
     return (
         <Container>
             <View style={styles.profileContainer}>
@@ -29,9 +48,11 @@ const Profile = () => {
                     </ListItem>
                 </List>
             </Content>
-            <View style={styles.buttonLogout}>
-                <Text style={styles.buttonLogoutText}>Keluar</Text>
-            </View>
+            <Pressable onPress={handleLogOut}>
+                <View style={styles.buttonLogout}>
+                    <Text style={styles.buttonLogoutText}>Keluar</Text>
+                </View>
+            </Pressable>
         </Container>
     );
 };
