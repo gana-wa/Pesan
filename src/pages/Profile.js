@@ -4,6 +4,7 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { LoggedOut } from '../redux/actions/auth';
 import { clearCartCreator } from '../redux/actions/menu';
+import { clearHistoryCreator } from '../redux/actions/history';
 
 const Profile = ({ navigation }) => {
     const [logOut, setLogOut] = useState(false);
@@ -18,6 +19,7 @@ const Profile = ({ navigation }) => {
         if (logOut) {
             dispatch(LoggedOut());
             dispatch(clearCartCreator());
+            dispatch(clearHistoryCreator());
             setLogOut(false);
             navigation.navigate('Login');
         }

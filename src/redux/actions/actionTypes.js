@@ -10,6 +10,7 @@ export const SEARCH_MENU = 'searchMenu';
 
 export const HISTORY_FETCHED = 'historyFetched';
 export const SHOW_HISTORY = 'showHistory';
+export const CLEAR_HISTORY = 'clearHistory';
 
 export const LOGGED_IN = 'loggedIn';
 export const REGISTERED = 'registered';

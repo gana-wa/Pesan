@@ -32,6 +32,7 @@ const Item = ({ item, style }) => {
 
 const Cart = ({ navigation }) => {
    const stateMenu = useSelector(state => state.menu);
+   const stateAuth = useSelector(state => state.auth.user);
 
    const dispatch = useDispatch();
 
@@ -56,18 +57,19 @@ const Cart = ({ navigation }) => {
          };
       });
 
-      const localhost = 'http://192.168.1.29:8000';
+      const localhost = 'http://192.168.1.137:8000';
 
       const URLString = `${localhost}/transaction`;
 
       const data = {
          invoice: invoice,
          // cashier: stateMenu.auth.user.username,
-         cashier: 'Gana',
+         cashier: stateAuth.name,
          total: totalAll,
          transaction: transactionItem,
       };
       // console.log(data);
+
       Axios.post(URLString, data)
          .then((res) => {
             // console.log(res);

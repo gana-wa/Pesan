@@ -14,3 +14,9 @@ export const showHistoryCreator = (invoice) => {
         payload: api.showHistory(invoice),
     };
 };
+
+export const clearHistoryCreator = () => {
+    return {
+        type: actions.CLEAR_HISTORY,
+    };
+};

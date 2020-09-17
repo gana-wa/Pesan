@@ -8,17 +8,16 @@ import spoonIcon from '../assets/icon/spoon.png';
 
 
 const Item = ({ item, style }) => {
-   // const [menu, setMenu] = useState({});
 
-   const stateHistory = useSelector(state => state.history.showHistory);
+   // const stateHistory = useSelector(state => state.history.showHistory);
 
-   // console.log(stateHistory);
+   // // console.log(menu);
 
-   const dispatch = useDispatch();
+   // const dispatch = useDispatch();
 
-   useEffect(() => {
-      dispatch(showHistoryCreator(item.invoice));
-   }, [dispatch, item.invoice]);
+   // useEffect(() => {
+   //    dispatch(showHistoryCreator(item.invoice));
+   // }, [dispatch, item.invoice]);
 
    return (
       <>
@@ -27,9 +26,12 @@ const Item = ({ item, style }) => {
                <Image source={spoonIcon} style={styles.icon} />
             </View>
             <View style={styles.detailContainer}>
-               <Text>{moment(item.date).format('DD MMM YYYY, HH:mm')}</Text>
-               <Text>{item.invoice}</Text>
-               <Text>{stateHistory.map(menu => menu.product_name)}</Text>
+               <View style={{ flexDirection: 'row' }}>
+                  <Text style={{ fontSize: 14 }}>{moment(item.date).format('DD MMM YYYY, HH:mm')} &middot; </Text>
+                  <Text style={{ color: '#27ae60', fontSize: 10, fontWeight: 'bold', alignSelf: 'center' }}>SELESAI</Text>
+               </View>
+               {/* <Text>{item.invoice}</Text> */}
+               <Text style={{ fontWeight: 'bold' }}>{`Total belanja : Rp ${(item.total).toLocaleString()}`}</Text>
             </View>
          </SafeAreaView>
       </>
@@ -93,7 +95,6 @@ const styles = StyleSheet.create({
    },
    detailContainer: {
       marginLeft: 15,
-      backgroundColor: 'lightgrey',
    },
 });
 

@@ -8,6 +8,10 @@ export const fetchAllMenu = () => {
     return Axios.get(`${localhost}/products`);
 };
 
+export const insertTransaction = (data) => {
+    return Axios.post(`${localhost}/transaction`, data);
+};
+
 export const fetchAllHistory = (name) => {
     return Axios.get(`${localhost}/history/name/${name}`);
 };

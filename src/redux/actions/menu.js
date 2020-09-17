@@ -5,7 +5,7 @@ export const fetchMenus = () => {
     return {
         type: actions.MENU_FETCHED,
         payload: api.fetchAllMenu(),
-    }
+    };
 };
 
 // SEARCH
@@ -14,9 +14,9 @@ export const searchMenu = (key) => {
         type: actions.SEARCH_MENU,
         payload: {
             key: key,
-        }
-    }
-}
+        },
+    };
+};
 
 // CART
 export const addToCart = (id, name, price, img) => {
@@ -28,16 +28,16 @@ export const addToCart = (id, name, price, img) => {
             quantity: 1,
             price,
             img,
-        }
-    }
-}
+        },
+    };
+};
 
 export const increaseQuantityCreator = (id) => {
     return {
         type: actions.QUANTITY_INCREASED,
         payload: {
             id: id,
-        }
+        },
     };
 };
 
@@ -46,12 +46,12 @@ export const decreaseQuantityCreator = (id) => {
         type: actions.QUANTITY_DECREASED,
         payload: {
             id: id,
-        }
+        },
     };
 };
 
 export const clearCartCreator = () => {
     return {
         type: actions.CLEAR_CART,
-    }
+    };
 };

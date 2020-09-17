@@ -47,7 +47,16 @@ const historyReducer = (state = intialState, action) => {
                 ...state,
                 isFulfilled: true,
                 isPending: false,
-                showHistory: action.payload.data.data,
+                showHistory: [...state.showHistory, action.payload.data.data],
+            };
+        // clear history
+        case actions.CLEAR_HISTORY:
+            return {
+                history: [],
+                showHistory: [],
+                isPending: false,
+                isFulfilled: false,
+                isRejected: false,
             };
         default:
             return state;
