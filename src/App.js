@@ -28,12 +28,20 @@ const App = () => {
           <Stack.Navigator>
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Register" component={Register} />
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="Menu" component={Menu} />
-            <Stack.Screen name="Cart" component={Cart} />
-            <Stack.Screen name="Profile" component={Profile} />
-            <Stack.Screen name="Riwayat Pesanan" component={History} />
-            <Stack.Screen name="Ubah Profil" component={ProfileEdit} />
+            <Stack.Screen name="Home" component={Home}
+              options={{
+                headerStyle: {
+                  elevation: 0,
+                },
+              }}
+            />
+            <Stack.Screen name="Menu" component={Menu}
+              options={({ route }) => ({ title: route.params.categoryName })}
+            />
+            <Stack.Screen name="Cart" component={Cart} options={{ title: 'Pesanan' }} />
+            <Stack.Screen name="Profile" component={Profile} options={{ title: 'Profil' }} />
+            <Stack.Screen name="History" component={History} options={{ title: 'Riwayat Pesanan' }} />
+            <Stack.Screen name="ProfileEdit" component={ProfileEdit} options={{ title: 'Ubah Profil' }} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

@@ -45,9 +45,31 @@ const menuReducer = (state = intialState, action) => {
             ...state,
             isRejected: true,
             isPending: false,
+            isFulfilled: false,
             error: action.payload.menu,
          };
       case actions.MENU_FETCHED + actions.FULFILLED:
+         return {
+            ...state,
+            isFulfilled: true,
+            isPending: false,
+            menus: action.payload.data.data,
+         };
+      // MENU BY CATEGORY
+      case actions.MENU_BY_CATEGORY + actions.PENDING:
+         return {
+            ...state,
+            isPending: true,
+         };
+      case actions.MENU_BY_CATEGORY + actions.REJECTED:
+         return {
+            ...state,
+            isRejected: true,
+            isPending: false,
+            isFulfilled: false,
+            error: action.payload.menu,
+         };
+      case actions.MENU_BY_CATEGORY + actions.FULFILLED:
          return {
             ...state,
             isFulfilled: true,

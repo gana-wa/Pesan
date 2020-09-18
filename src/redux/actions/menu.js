@@ -15,6 +15,13 @@ export const fetchMenus = () => {
     };
 };
 
+export const menuByCategory = (category_name) => {
+    return {
+        type: actions.MENU_BY_CATEGORY,
+        payload: api.fetchMenuByCategory(category_name),
+    };
+};
+
 // SEARCH
 export const searchMenu = (key) => {
     return {

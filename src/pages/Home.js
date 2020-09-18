@@ -18,7 +18,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 //    { name: 'All Menus', image: gambar },
 // ];
 
-const Home = ({ navigation }) => {
+const Home = ({ route, navigation }) => {
    const localhost = '192.168.1.137';
 
    const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const Home = ({ navigation }) => {
 
    const stateCategory = useSelector(state => state.menu.category);
 
-   console.log(stateCategory);
+   // console.log(stateCategory);
 
    return (
       <View style={style.container}>
@@ -49,7 +49,7 @@ const Home = ({ navigation }) => {
             </View>
             <View style={style.listCategoryContainer} >
                <Text style={style.textCategory}>Category</Text>
-               <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
+               <TouchableOpacity onPress={() => navigation.navigate('Menu', { categoryId: null, categoryName: 'All Menu' })}>
                   <View style={style.cardCategory}>
                      <Image source={gambar} style={style.cardCategoryImg} />
                      <Text style={style.cardCategoryText}>All Category</Text>
@@ -59,7 +59,7 @@ const Home = ({ navigation }) => {
                   itemDimension={130}
                   data={stateCategory}
                   renderItem={({ item }) => (
-                     <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
+                     <TouchableOpacity onPress={() => navigation.navigate('Menu', { categoryId: item.category_id, categoryName: item.category_name })}>
                         <View style={style.cardCategory}>
                            <Image source={{ uri: item.image.replace('localhost', localhost) }} style={style.cardCategoryImg} />
                            <Text style={style.cardCategoryText}>{item.category_name}</Text>

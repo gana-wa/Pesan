@@ -39,10 +39,10 @@ const Profile = ({ navigation }) => {
             </View>
             <Content>
                 <List>
-                    <ListItem onPress={() => navigation.navigate('Ubah Profil')}>
+                    <ListItem onPress={() => navigation.navigate('ProfileEdit')}>
                         <Text>Ubah Profil</Text>
                     </ListItem>
-                    <ListItem onPress={() => navigation.navigate('Riwayat Pesanan')}>
+                    <ListItem onPress={() => navigation.navigate('History')}>
                         <Text>Riwayat pesanan</Text>
                     </ListItem>
                     {/* <ListItem>

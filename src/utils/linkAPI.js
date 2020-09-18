@@ -12,6 +12,10 @@ export const fetchAllMenu = () => {
     return Axios.get(`${localhost}/products`);
 };
 
+export const fetchMenuByCategory = (category_name) => {
+    return Axios.get(`${localhost}/products/category/${category_name}`);
+};
+
 export const insertTransaction = (data) => {
     return Axios.post(`${localhost}/transaction`, data);
 };

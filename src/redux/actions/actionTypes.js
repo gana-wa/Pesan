@@ -1,6 +1,7 @@
 import { ActionType } from 'redux-promise-middleware';
 
 export const MENU_FETCHED = 'menuFetched';
+export const MENU_BY_CATEGORY = 'MENU_BY_CATEGORY';
 export const QUANTITY_INCREASED = 'quantityIncreased';
 export const QUANTITY_DECREASED = 'quantityDecreased';
 export const MENU_TO_CART = 'addToCart';
