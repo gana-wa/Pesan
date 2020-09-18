@@ -20,3 +20,4 @@ export const clearHistoryCreator = () => {
         type: actions.CLEAR_HISTORY,
     };
 };
+

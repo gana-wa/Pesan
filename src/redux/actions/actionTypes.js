@@ -8,6 +8,8 @@ export const CLEAR_CART = 'emptyCart';
 export const TOTAL_PRICE = 'totalPrice';
 export const SEARCH_MENU = 'searchMenu';
 
+export const CATEGORY_FETCHED = 'categoryFetched';
+
 export const HISTORY_FETCHED = 'historyFetched';
 export const SHOW_HISTORY = 'showHistory';
 export const CLEAR_HISTORY = 'clearHistory';

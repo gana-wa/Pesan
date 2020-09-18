@@ -3,6 +3,7 @@ import * as actions from '../actions/actionTypes';
 const intialState = {
    menus: [],
    carts: [],
+   category: [],
    cashier: '',
    isPending: false,
    isFulfilled: false,
@@ -13,6 +14,26 @@ const menuReducer = (state = intialState, action) => {
    let newCart = [...state.carts];
    let newMenu = [...state.menus];
    switch (action.type) {
+      case actions.CATEGORY_FETCHED + actions.PENDING:
+         return {
+            ...state,
+            isPending: true,
+         };
+      case actions.CATEGORY_FETCHED + actions.PENDING:
+         return {
+            ...state,
+            isRejected: true,
+            isPending: false,
+            error: action.payload.menu,
+         };
+      case actions.CATEGORY_FETCHED + actions.FULFILLED:
+         return {
+            ...state,
+            isPending: false,
+            isRejected: false,
+            isFulfilled: true,
+            category: action.payload.data.data,
+         };
       // FETCH MENU
       case actions.MENU_FETCHED + actions.PENDING:
          return {

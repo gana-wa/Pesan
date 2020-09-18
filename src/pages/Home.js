@@ -1,21 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
    View, Text, StyleSheet, TextInput, Image, Dimensions, TouchableOpacity,
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { FlatGrid } from 'react-native-super-grid';
+
+import { fetchCategory } from '../redux/actions/menu';
 
 import gambar from '../assets/img/gambar.jpg';
 import soto from '../assets/img/soto.jpg';
 import bev from '../assets/img/bev.jpg';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const category = [
-   { name: 'Food', image: soto },
-   { name: 'Beverage', image: bev },
-   { name: 'All Menus', image: gambar },
-];
+// const category = [
+//    { name: 'Food', image: soto },
+//    { name: 'Beverage', image: bev },
+//    { name: 'All Menus', image: gambar },
+// ];
 
 const Home = ({ navigation }) => {
+   const localhost = '192.168.1.137';
+
+   const dispatch = useDispatch();
+
+   useEffect(() => {
+      dispatch(fetchCategory());
+   }, [dispatch]);
+
+   const stateCategory = useSelector(state => state.menu.category);
+
+   console.log(stateCategory);
+
    return (
       <View style={style.container}>
          <View style={style.header}>
@@ -34,14 +49,20 @@ const Home = ({ navigation }) => {
             </View>
             <View style={style.listCategoryContainer} >
                <Text style={style.textCategory}>Category</Text>
+               <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
+                  <View style={style.cardCategory}>
+                     <Image source={gambar} style={style.cardCategoryImg} />
+                     <Text style={style.cardCategoryText}>All Category</Text>
+                  </View>
+               </TouchableOpacity>
                <FlatGrid
                   itemDimension={130}
-                  data={category}
+                  data={stateCategory}
                   renderItem={({ item }) => (
                      <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                         <View style={style.cardCategory}>
-                           <Image source={item.image} style={style.cardCategoryImg} />
-                           <Text style={style.cardCategoryText}>{item.name}</Text>
+                           <Image source={{ uri: item.image.replace('localhost', localhost) }} style={style.cardCategoryImg} />
+                           <Text style={style.cardCategoryText}>{item.category_name}</Text>
                         </View>
                      </TouchableOpacity>
                   )}

@@ -1,6 +1,13 @@
 import * as actions from './actionTypes';
 import * as api from '../../utils/linkAPI';
 
+export const fetchCategory = () => {
+    return {
+        type: actions.CATEGORY_FETCHED,
+        payload: api.fetchCategory(),
+    };
+};
+
 export const fetchMenus = () => {
     return {
         type: actions.MENU_FETCHED,

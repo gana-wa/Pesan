@@ -3,6 +3,10 @@ import Axios from 'axios';
 
 const localhost = 'http://192.168.1.137:8000';
 
+export const fetchCategory = () => {
+    return Axios.get(`${localhost}/category`);
+};
+
 export const fetchAllMenu = () => {
     // return Axios.get(`${Config.API_ADDRESS}/products`);
     return Axios.get(`${localhost}/products`);
