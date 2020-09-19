@@ -23,12 +23,10 @@ export const menuByCategory = (category_name) => {
 };
 
 // SEARCH
-export const searchMenu = (key) => {
+export const searchMenu = (name, by) => {
     return {
         type: actions.SEARCH_MENU,
-        payload: {
-            key: key,
-        },
+        payload: api.searchMenu(name, by),
     };
 };
 

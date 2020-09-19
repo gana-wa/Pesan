@@ -15,6 +15,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import History from './pages/History';
 import ProfileEdit from './pages/ProfileEdit';
+import { Text } from 'native-base';
 
 const { persistor, store } = configureStore();
 
@@ -36,7 +37,9 @@ const App = () => {
               }}
             />
             <Stack.Screen name="Menu" component={Menu}
-              options={({ route }) => ({ title: route.params.categoryName })}
+              options={({ route }) => ({
+                title: route.params.categoryName,
+              })}
             />
             <Stack.Screen name="Cart" component={Cart} options={{ title: 'Pesanan' }} />
             <Stack.Screen name="Profile" component={Profile} options={{ title: 'Profil' }} />

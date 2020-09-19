@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
    View, Text, StyleSheet, TextInput, Image, Dimensions, TouchableOpacity,
 } from 'react-native';
@@ -8,8 +8,6 @@ import { FlatGrid } from 'react-native-super-grid';
 import { fetchCategory } from '../redux/actions/menu';
 
 import gambar from '../assets/img/gambar.jpg';
-import soto from '../assets/img/soto.jpg';
-import bev from '../assets/img/bev.jpg';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 // const category = [
@@ -20,6 +18,8 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const Home = ({ route, navigation }) => {
    const localhost = '192.168.1.137';
+
+   const [searchKey, setSearchKey] = useState('');
 
    const dispatch = useDispatch();
 
@@ -37,6 +37,10 @@ const Home = ({ route, navigation }) => {
             <TextInput
                style={style.searchHeader}
                placeholder={'Mau makan apa hari ini?'}
+               onChangeText={value => setSearchKey(value)}
+               onSubmitEditing={() => {
+                  navigation.navigate('Menu', { isSearch: true, searchKey: searchKey });
+               }}
             />
             <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
                <Icon name="user" size={30} color="#7f8c8d" />

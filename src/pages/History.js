@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, Pressable, FlatList, SafeAreaView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchHistoryCreator, showHistoryCreator } from '../redux/actions/history';
+import { fetchHistoryCreator } from '../redux/actions/history';
 import moment from 'moment';
-import Modal from 'react-native-modal';
 
 import ModalDetail from '../components/ModalDetail';
 
@@ -55,7 +54,7 @@ const Item = ({ item, style }) => {
       setModalVisible(!isModalVisible);
    };
 
-   const stateHistory = useSelector(state => state.history.showHistory);
+   // const stateHistory = useSelector(state => state.history.showHistory);
 
    // console.log(menu);
 

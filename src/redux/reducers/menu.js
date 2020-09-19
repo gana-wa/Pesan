@@ -12,7 +12,7 @@ const intialState = {
 
 const menuReducer = (state = intialState, action) => {
    let newCart = [...state.carts];
-   let newMenu = [...state.menus];
+   // let newMenu = [...state.menus];
    switch (action.type) {
       case actions.CATEGORY_FETCHED + actions.PENDING:
          return {
@@ -77,13 +77,29 @@ const menuReducer = (state = intialState, action) => {
             menus: action.payload.data.data,
          };
       // SEARCH
-      case actions.SEARCH_MENU:
+      case actions.SEARCH_MENU + actions.PENDING:
          return {
             ...state,
-            menus: action.payload.key,
+            isPending: true,
+         };
+      case actions.SEARCH_MENU + actions.REJECTED:
+         return {
+            ...state,
+            isRejected: true,
+            isPending: false,
+            isFulfilled: false,
+            error: action.payload.menu,
+         };
+      case actions.SEARCH_MENU + actions.FULFILLED:
+         return {
+            ...state,
+            isFulfilled: true,
+            isPending: false,
+            menus: action.payload.data.data,
          };
       // CART
       case actions.MENU_TO_CART:
+         let newMenu = [...state.menus];
          const index = state.carts.findIndex((item) => {
             return action.payload.id === item.id;
          });

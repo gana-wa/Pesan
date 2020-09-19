@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, Image, View, Pressable } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchMenus, addToCart, increaseQuantityCreator, decreaseQuantityCreator, menuByCategory } from '../redux/actions/menu';
+import { fetchMenus, addToCart, increaseQuantityCreator, decreaseQuantityCreator, menuByCategory, searchMenu } from '../redux/actions/menu';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Item = ({ item, style }) => {
@@ -47,20 +47,24 @@ const Item = ({ item, style }) => {
 
 const Menu = ({ navigation, route }) => {
 
-   const { categoryName, categoryId } = route.params;
+   const { categoryName, isSearch, searchKey } = route.params;
 
-   console.log(categoryName);
+   // console.log(categoryName);
 
    const stateMenu = useSelector(state => state.menu);
    const menu = stateMenu.menus;
    const dispatch = useDispatch();
    useEffect(() => {
-      if (categoryName === 'All Menu') {
-         dispatch(fetchMenus());
+      if (isSearch) {
+         dispatch(searchMenu(searchKey, 'product_name'));
       } else {
-         dispatch(menuByCategory(categoryName));
+         if (categoryName === 'All Menu') {
+            dispatch(fetchMenus());
+         } else {
+            dispatch(menuByCategory(categoryName));
+         }
       }
-   }, [categoryName, dispatch]);
+   }, [categoryName, dispatch, isSearch, searchKey]);
 
    let totalItem = stateMenu.carts.reduce((total, item) => {
       return total + item.quantity;

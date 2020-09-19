@@ -16,6 +16,10 @@ export const fetchMenuByCategory = (category_name) => {
     return Axios.get(`${localhost}/products/category/${category_name}`);
 };
 
+export const searchMenu = (name, by) => {
+    return Axios.get(`${localhost}/products/search?product_name=${name}&by=${by}`);
+};
+
 export const insertTransaction = (data) => {
     return Axios.post(`${localhost}/transaction`, data);
 };
