@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-   View, Text, StyleSheet, TextInput, Image, Dimensions, TouchableOpacity,
+   View, Text, StyleSheet, TextInput, Image, Dimensions, TouchableOpacity, Pressable
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { FlatGrid } from 'react-native-super-grid';
@@ -8,7 +8,8 @@ import { FlatGrid } from 'react-native-super-grid';
 import { fetchCategory } from '../redux/actions/menu';
 
 import gambar from '../assets/img/gambar.jpg';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+// import Icon from 'react-native-vector-icons/FontAwesome5';
+import userIcon from '../assets/icon/user.png';
 
 const Home = ({ route, navigation }) => {
    const localhost = '192.168.1.137';
@@ -22,10 +23,19 @@ const Home = ({ route, navigation }) => {
    }, [dispatch]);
 
    const stateCategory = useSelector(state => state.menu.category);
+   const stateAuth = useSelector(state => state.auth.user);
 
    return (
       <View style={style.container}>
          <View style={style.header}>
+            {Number(stateAuth.level_id) === 1 ? (
+               <Pressable
+                  style={{ width: 40, height: 40, borderWidth: 1.5, borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}
+                  onPress={() => navigation.navigate('AddMenu')}
+               >
+                  <Text style={{ fontSize: 25, fontWeight: 'bold' }}>+</Text>
+               </Pressable>
+            ) : (null)}
             <TextInput
                style={style.searchHeader}
                placeholder={'Mau makan apa hari ini?'}
@@ -35,7 +45,7 @@ const Home = ({ route, navigation }) => {
                }}
             />
             <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-               <Icon name="user" size={30} color="#7f8c8d" />
+               <Image source={userIcon} style={{ width: 40, height: 40 }} />
             </TouchableOpacity>
          </View>
          <View style={style.content}>
@@ -83,14 +93,14 @@ const style = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingHorizontal: 20,
+      paddingHorizontal: 10,
       borderBottomWidth: 1,
       borderBottomColor: 'grey',
    },
    searchHeader: {
       // paddingVertical: 5,
       height: '70%',
-      width: '85%',
+      // width: '85%',
       borderColor: 'gray',
       borderWidth: 1,
       borderRadius: 5,

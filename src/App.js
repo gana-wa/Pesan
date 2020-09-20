@@ -16,6 +16,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import History from './pages/History';
 import ProfileEdit from './pages/ProfileEdit';
+import AddMenu from './pages/AddMenu';
 
 const { persistor, store } = configureStore();
 
@@ -36,6 +37,7 @@ const App = () => {
                 },
               }}
             />
+            <Stack.Screen name="AddMenu" component={AddMenu} options={{ title: 'Tambah menu' }} />
             <Stack.Screen name="Menu" component={Menu}
               options={({ route }) => ({
                 title: route.params.categoryName,
