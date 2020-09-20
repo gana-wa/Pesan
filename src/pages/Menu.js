@@ -49,8 +49,6 @@ const Menu = ({ navigation, route }) => {
 
    const { categoryName, isSearch, searchKey } = route.params;
 
-   // console.log(categoryName);
-
    const stateMenu = useSelector(state => state.menu);
    const menu = stateMenu.menus;
    const dispatch = useDispatch();

@@ -10,6 +10,7 @@ const intialState = {
       telp: '',
       level_id: null,
       token: '',
+      id: '',
    },
    msg: '',
 };
@@ -42,6 +43,7 @@ const authReducer = (state = intialState, action) => {
                   telp: action.payload.data.data.telp,
                   level_id: action.payload.data.data.level_id,
                   token: action.payload.data.data.token,
+                  id: action.payload.data.data.id,
                },
                msg: action.payload.data.data.msg,
             };
@@ -80,8 +82,48 @@ const authReducer = (state = intialState, action) => {
                   telp: action.payload.data.data.telp,
                   level_id: action.payload.data.data.level_id,
                   token: action.payload.data.data.token,
+                  id: action.payload.data.data.id,
                },
                msg: `${action.payload.data.data.msg}, now you can login`,
+            };
+         } else {
+            return {
+               ...state,
+               isSuccess: false,
+               isPending: false,
+               isLoggedIn: false,
+               msg: action.payload.data.data.msg,
+            };
+         }
+      // EDIT
+      case actions.EDIT_USER + actions.PENDING:
+         return {
+            ...state,
+            isPeding: true,
+            msg: '...Loading',
+         };
+      case actions.EDIT_USER + actions.REJECTED:
+         return {
+            ...state,
+            isRejected: true,
+            isPending: false,
+            msg: action.payload.data.data.msg,
+         };
+      case actions.EDIT_USER + actions.FULFILLED:
+         if (action.payload.data.isSuccess) {
+            return {
+               ...state,
+               // isLoggedIn: true,
+               isSuccess: true,
+               isPending: false,
+               user: {
+                  ...state.user,
+                  name: action.payload.data.data.name,
+                  telp: action.payload.data.data.telp,
+                  // level_id: action.payload.data.data.level_id,
+                  // token: action.payload.data.data.token,
+               },
+               msg: action.payload.data.data.msg,
             };
          } else {
             return {
@@ -104,6 +146,7 @@ const authReducer = (state = intialState, action) => {
                telp: '',
                level_id: null,
                token: '',
+               id: '',
             },
             msg: '',
          };

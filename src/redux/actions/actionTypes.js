@@ -18,6 +18,7 @@ export const CLEAR_HISTORY = 'clearHistory';
 export const LOGGED_IN = 'loggedIn';
 export const REGISTERED = 'registered';
 export const LOGGED_OUT = 'loggedOut';
+export const EDIT_USER = 'EDIT_USER';
 
 export const PENDING = `_${ActionType.Pending}`;
 export const FULFILLED = `_${ActionType.Fulfilled}`;

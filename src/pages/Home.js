@@ -10,12 +10,6 @@ import { fetchCategory } from '../redux/actions/menu';
 import gambar from '../assets/img/gambar.jpg';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-// const category = [
-//    { name: 'Food', image: soto },
-//    { name: 'Beverage', image: bev },
-//    { name: 'All Menus', image: gambar },
-// ];
-
 const Home = ({ route, navigation }) => {
    const localhost = '192.168.1.137';
 
@@ -28,8 +22,6 @@ const Home = ({ route, navigation }) => {
    }, [dispatch]);
 
    const stateCategory = useSelector(state => state.menu.category);
-
-   // console.log(stateCategory);
 
    return (
       <View style={style.container}>

@@ -20,3 +20,10 @@ export const LoggedOut = () => {
         type: actions.LOGGED_OUT,
     };
 };
+
+export const editUser = (id, data) => {
+    return {
+        type: actions.EDIT_USER,
+        payload: api.editUser(id, data)
+    }
+}

@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
+import { SafeAreaView, StatusBar, StyleSheet, Text, Image, View, Pressable, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider } from 'react-redux';
@@ -15,7 +16,6 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import History from './pages/History';
 import ProfileEdit from './pages/ProfileEdit';
-import { Text } from 'native-base';
 
 const { persistor, store } = configureStore();
 
@@ -44,7 +44,14 @@ const App = () => {
             <Stack.Screen name="Cart" component={Cart} options={{ title: 'Pesanan' }} />
             <Stack.Screen name="Profile" component={Profile} options={{ title: 'Profil' }} />
             <Stack.Screen name="History" component={History} options={{ title: 'Riwayat Pesanan' }} />
-            <Stack.Screen name="ProfileEdit" component={ProfileEdit} options={{ title: 'Ubah Profil' }} />
+            <Stack.Screen name="ProfileEdit" component={ProfileEdit} options={{
+              title: 'Ubah Profil',
+              // headerRight: () => (
+              //   <Pressable style={{ backgroundColor: '#27ae60', marginRight: 15, width: 80, height: '50%', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }} onPress={() => alert('SIMPAN')}>
+              //     <Text style={{ color: '#fff', fontWeight: 'bold' }}>SIMPAN</Text>
+              //   </Pressable>
+              // ),
+            }} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
