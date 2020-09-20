@@ -12,6 +12,8 @@ target 'PesanNakam' do
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
+  pod 'RNCPicker', :path => '../node_modules/@react-native-community/picker'
+
   target 'PesanNakamTests' do
     inherit! :complete
     # Pods for testing
