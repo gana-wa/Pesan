@@ -3,10 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, TextInput, StyleSheet, Pressable, Image } from 'react-native';
 import { Picker } from 'native-base';
 import ImagePicker from 'react-native-image-picker';
+import Axios from 'axios';
 
-import defaultImage from '../assets/img/default.jpg'
+import defaultImage from '../assets/img/default.jpg';
 
-const AddMenu = () => {
+const AddMenu = ({ navigation }) => {
    const category = useSelector(state => state.menu.category);
 
    const handleImgPick = () => {
@@ -44,21 +45,63 @@ const AddMenu = () => {
    });
 
    const handleSubmit = () => {
-      console.log(formRespone);
+      let formData = new FormData();
+      formData.append('product_name', formRespone.product_name);
+      formData.append('price', Number(formRespone.price));
+      formData.append('category_id', formRespone.category_id);
+      formData.append('image', {
+         uri: `file://${formRespone.image.path}`,
+         type: formRespone.image.type,
+         name: formRespone.image.fileName,
+         size: formRespone.image.fileSize,
+      });
+
+      const configHeader = {
+         headers: {
+            'content-type': 'multipart/form-data',
+            contentType: false,
+            mimeType: 'multipart/form-data',
+            'cache-control': 'no-cache',
+            accept: 'application/json',
+            // "x-access-token":
+            // "Bearer toke",
+         },
+      };
+
+      // const localhost = 'http://192.168.1.13:8000';
+      const localhost = 'http://192.168.43.42:8000';
+
+      // console.log(formData);
+
+      const URLString = `${localhost}/products`;
+      setFormResponse({
+         product_name: '',
+         price: '',
+         category_id: '',
+         image: '',
+      });
+
+      Axios.post(URLString, formData, configHeader)
+         .then((res) => {
+            navigation.navigate('Home');
+            alert(res.data.data.msg);
+            // console.log(res);
+         })
+         .catch(err => console.log(err));
    };
 
    return (
       <View style={styles.container}>
          <View style={styles.containerForm}>
-            <View style={{ alignItems: 'center', }}>
+            <View style={{ alignItems: 'center' }}>
                <Pressable onPress={() => handleImgPick()}>
                   {formRespone.image.length < 1 ? (
-                     <Image source={defaultImage} style={{ width: 100, height: 100, borderRadius: 10, }} />
+                     <Image source={defaultImage} style={{ width: 100, height: 100, borderRadius: 10 }} />
                   ) : (
-                        <Image source={formRespone.image} style={{ width: 100, height: 100, borderRadius: 10, }} />
+                        <Image source={formRespone.image} style={{ width: 100, height: 100, borderRadius: 10 }} />
                      )}
                </Pressable>
-               <Text style={{ fontStyle: 'italic', fontSize: 12, }}>(Ukuran poto maks 2 mb)</Text>
+               <Text style={{ fontStyle: 'italic', fontSize: 12 }}>(Ukuran poto maks 2 mb)</Text>
             </View>
             <Text style={styles.labelText}>Nama menu</Text>
             <TextInput style={styles.loginFormText} placeholder={'Nama menu harus diisi'} onChangeText={text => setFormResponse({ ...formRespone, product_name: text })} />
