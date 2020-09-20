@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, Image, View, Pressable } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchMenus, addToCart, increaseQuantityCreator, decreaseQuantityCreator, menuByCategory, searchMenu } from '../redux/actions/menu';
+
 import Icon from 'react-native-vector-icons/Ionicons';
+import editIcon from '../assets/icon/edit.png';
+import deleteIcon from '../assets/icon/delete.png';
 
 const Item = ({ item, style }) => {
    const stateMenu = useSelector(state => state.menu);
+   const stateAuth = useSelector(state => state.auth.user);
    const dispatch = useDispatch();
    const index = stateMenu.carts.findIndex(inCart => {
       return inCart.id === item.product_id;
@@ -19,24 +23,36 @@ const Item = ({ item, style }) => {
                <Text style={styles.desc}>Deskripsi produk. Ini hanyalah sebagai contoh deskripsi produk</Text>
                <Text style={styles.price}>{`Rp ${item.price.toLocaleString()}`}</Text>
                <View style={styles.buttonContainer}>
-                  {index >= 0 ? (
-                     <View style={styles.buttonCounter} >
-                        <Pressable style={styles.buttonCounterText} onPress={() => dispatch(decreaseQuantityCreator(item.product_id))}>
-                           <Text style={styles.buttonCounterText}>-</Text>
+                  {Number(stateAuth.level_id) === 1 ? (
+                     <View style={styles.buttonAdminContainer} >
+                        <Pressable style={styles.buttonEditDelete} onPress={() => dispatch(decreaseQuantityCreator(item.product_id))}>
+                           <Image source={editIcon} style={{ width: 20, height: 20 }} />
                         </Pressable>
-                        <Text style={styles.CounterText}>{stateMenu.carts[index].quantity}</Text>
-                        <Pressable style={styles.buttonCounterText}>
-                           <Text style={styles.buttonCounterText} onPress={() => dispatch(increaseQuantityCreator(item.product_id))}>+</Text>
+                        {/* <Text style={styles.CounterText}>{stateMenu.carts[index].quantity}</Text> */}
+                        <Pressable style={styles.buttonEditDelete}>
+                           <Image source={deleteIcon} style={{ width: 20, height: 20 }} />
                         </Pressable>
                      </View>
                   ) : (
-                        <Pressable style={styles.buttonAdd} onPress={() => dispatch(addToCart(
-                           item.product_id,
-                           item.product_name,
-                           item.price,
-                           item.image))}>
-                           <Text style={styles.buttonAddText}>Beli</Text>
-                        </Pressable>
+                        index >= 0 ? (
+                           <View style={styles.buttonCounter} >
+                              <Pressable style={styles.buttonCounterText} onPress={() => dispatch(decreaseQuantityCreator(item.product_id))}>
+                                 <Text style={styles.buttonCounterText}>-</Text>
+                              </Pressable>
+                              <Text style={styles.CounterText}>{stateMenu.carts[index].quantity}</Text>
+                              <Pressable style={styles.buttonCounterText} onPress={() => dispatch(increaseQuantityCreator(item.product_id))}>
+                                 <Text style={styles.buttonCounterText}>+</Text>
+                              </Pressable>
+                           </View>
+                        ) : (
+                              <Pressable style={styles.buttonAdd} onPress={() => dispatch(addToCart(
+                                 item.product_id,
+                                 item.product_name,
+                                 item.price,
+                                 item.image))}>
+                                 <Text style={styles.buttonAddText}>Beli</Text>
+                              </Pressable>
+                           )
                      )}
                </View>
             </View>
@@ -204,6 +220,23 @@ const styles = StyleSheet.create({
       color: 'white',
       fontSize: 14,
       fontWeight: 'bold',
+   },
+   // admin
+   buttonAdminContainer: {
+      flexDirection: 'row',
+      width: 90,
+      height: 30,
+      justifyContent: 'space-around',
+      alignItems: 'center',
+   },
+   buttonEditDelete: {
+      elevation: 3,
+      backgroundColor: '#fff',
+      borderRadius: 5,
+      width: 30,
+      height: 30,
+      alignItems: 'center',
+      justifyContent: 'center',
    },
 });
 
