@@ -12,7 +12,8 @@ import gambar from '../assets/img/gambar.jpg';
 import userIcon from '../assets/icon/user.png';
 
 const Home = ({ route, navigation }) => {
-   const localhost = '192.168.1.137';
+   // const localhost = '192.168.1.137';
+   const localhost = '192.168.43.42';
 
    const [searchKey, setSearchKey] = useState('');
 

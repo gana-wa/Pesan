@@ -1,10 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { View, Text, TextInput, StyleSheet, Pressable } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Pressable, Image } from 'react-native';
 import { Picker } from 'native-base';
+import ImagePicker from 'react-native-image-picker';
+
+import defaultImage from '../assets/img/default.jpg'
 
 const AddMenu = () => {
    const category = useSelector(state => state.menu.category);
+
+   const handleImgPick = () => {
+      const options = {
+         title: 'Select Picture',
+         // customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+         storageOptions: {
+            skipBackup: true,
+            path: 'images',
+         },
+         noData: true,
+      };
+
+      ImagePicker.showImagePicker(options, (response) => {
+         console.log('Response = ', response);
+
+         if (response.didCancel) {
+            console.log('User cancelled image picker');
+         } else if (response.error) {
+            console.log('ImagePicker Error: ', response.error);
+         } else if (response.customButton) {
+            console.log('User tapped custom button: ', response.customButton);
+         } else {
+            const source = response;
+            setFormResponse({ ...formRespone, image: source });
+         }
+      });
+   };
 
    const [formRespone, setFormResponse] = useState({
       product_name: '',
@@ -20,9 +50,16 @@ const AddMenu = () => {
    return (
       <View style={styles.container}>
          <View style={styles.containerForm}>
-            <Pressable style={{ backgroundColor: 'green', width: 100 }}>
-               <Text>Select Image</Text>
-            </Pressable>
+            <View style={{ alignItems: 'center', }}>
+               <Pressable onPress={() => handleImgPick()}>
+                  {formRespone.image.length < 1 ? (
+                     <Image source={defaultImage} style={{ width: 100, height: 100, borderRadius: 10, }} />
+                  ) : (
+                        <Image source={formRespone.image} style={{ width: 100, height: 100, borderRadius: 10, }} />
+                     )}
+               </Pressable>
+               <Text style={{ fontStyle: 'italic', fontSize: 12, }}>(Ukuran poto maks 2 mb)</Text>
+            </View>
             <Text style={styles.labelText}>Nama menu</Text>
             <TextInput style={styles.loginFormText} placeholder={'Nama menu harus diisi'} onChangeText={text => setFormResponse({ ...formRespone, product_name: text })} />
             <Text style={styles.labelText}>Kategori</Text>
@@ -41,7 +78,7 @@ const AddMenu = () => {
             <TextInput maxLength={12} keyboardType={'numeric'} style={styles.loginFormText} onChangeText={text => setFormResponse({ ...formRespone, price: text })} placeholder={'Min 100'} />
          </View>
          <View>
-            {formRespone.product_name.length < 1 || formRespone.price.length < 3 || formRespone.category_id.length < 1 ? (
+            {formRespone.product_name.length < 1 || formRespone.price.length < 3 || formRespone.category_id.length < 1 || formRespone.image.length < 1 ? (
                <View style={styles.buttonLoginDisabled}>
                   <Text style={styles.buttonLoginText}>SIMPAN</Text>
                </View>
