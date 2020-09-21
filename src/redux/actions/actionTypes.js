@@ -8,6 +8,7 @@ export const MENU_TO_CART = 'addToCart';
 export const CLEAR_CART = 'emptyCart';
 export const TOTAL_PRICE = 'totalPrice';
 export const SEARCH_MENU = 'searchMenu';
+export const DELETE_MENU = 'DELETE_MENU';
 
 export const CATEGORY_FETCHED = 'categoryFetched';
 

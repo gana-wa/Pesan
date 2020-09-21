@@ -57,7 +57,8 @@ const Cart = ({ navigation }) => {
          };
       });
 
-      const localhost = 'http://192.168.1.137:8000';
+      // const localhost = 'http://192.168.1.137:8000';
+      const localhost = 'http://192.168.43.42:8000';
 
       const URLString = `${localhost}/transaction`;
 

@@ -21,6 +21,10 @@ export const searchMenu = (name, by) => {
     return Axios.get(`${localhost}/products/search?product_name=${name}&by=${by}`);
 };
 
+export const deleteMenu = (id) => {
+    return Axios.delete(`${localhost}/products/${id}`);
+};
+
 export const insertTransaction = (data) => {
     return Axios.post(`${localhost}/transaction`, data);
 };
@@ -42,5 +46,5 @@ export const register = (data) => {
 };
 
 export const editUser = (id, data) => {
-    return Axios.patch(`${localhost}/auth/${id}`, data)
+    return Axios.patch(`${localhost}/auth/${id}`, data);
 }

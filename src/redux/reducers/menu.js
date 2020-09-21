@@ -165,6 +165,10 @@ const menuReducer = (state = intialState, action) => {
             ...state,
             carts: [],
          };
+      case actions.DELETE_MENU:
+         return {
+            ...state,
+         };
       default:
          return state;
    }

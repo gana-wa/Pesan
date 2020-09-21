@@ -22,6 +22,13 @@ export const menuByCategory = (category_name) => {
     };
 };
 
+export const deleteMenu = (id) => {
+    return {
+        type: actions.DELETE_MENU,
+        payload: api.deleteMenu(id),
+    };
+};
+
 // SEARCH
 export const searchMenu = (name, by) => {
     return {

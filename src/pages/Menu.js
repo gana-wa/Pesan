@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, Image, View, Pressable } from 'react-native';
+import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, Image, View, Pressable, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchMenus, addToCart, increaseQuantityCreator, decreaseQuantityCreator, menuByCategory, searchMenu } from '../redux/actions/menu';
+import { fetchMenus, addToCart, increaseQuantityCreator, decreaseQuantityCreator, menuByCategory, searchMenu, deleteMenu } from '../redux/actions/menu';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import editIcon from '../assets/icon/edit.png';
@@ -10,14 +10,38 @@ import deleteIcon from '../assets/icon/delete.png';
 const Item = ({ item, style }) => {
    const stateMenu = useSelector(state => state.menu);
    const stateAuth = useSelector(state => state.auth.user);
+
    const dispatch = useDispatch();
+
    const index = stateMenu.carts.findIndex(inCart => {
       return inCart.id === item.product_id;
    });
+
+   const localhost = '192.168.43.42';
+
+   const alerts = () => {
+      Alert.alert(
+         'Hapus Menu',
+         'Menu ini akan dihapus?',
+         [
+            {
+               text: 'Cancel',
+               onPress: () => console.log('canceled'),
+               // style: "cancel",
+            },
+            {
+               text: 'OK',
+               onPress: () => dispatch(deleteMenu(item.product_id)),
+            },
+         ],
+         { cancelable: false }
+      );
+   };
+
    return (
       <>
          <View style={[styles.item, style]}>
-            <Image style={styles.menuImage} source={{ uri: item.image }} />
+            <Image style={styles.menuImage} source={{ uri: item.image.replace('localhost', localhost) }} />
             <View style={styles.titleWrapper}>
                <Text style={styles.title}>{item.product_name}</Text>
                <Text style={styles.desc}>Deskripsi produk. Ini hanyalah sebagai contoh deskripsi produk</Text>
@@ -25,11 +49,11 @@ const Item = ({ item, style }) => {
                <View style={styles.buttonContainer}>
                   {Number(stateAuth.level_id) === 1 ? (
                      <View style={styles.buttonAdminContainer} >
-                        <Pressable style={styles.buttonEditDelete} onPress={() => dispatch(decreaseQuantityCreator(item.product_id))}>
+                        <Pressable style={styles.buttonEditDelete}>
                            <Image source={editIcon} style={{ width: 20, height: 20 }} />
                         </Pressable>
                         {/* <Text style={styles.CounterText}>{stateMenu.carts[index].quantity}</Text> */}
-                        <Pressable style={styles.buttonEditDelete}>
+                        <Pressable style={styles.buttonEditDelete} onPress={alerts}>
                            <Image source={deleteIcon} style={{ width: 20, height: 20 }} />
                         </Pressable>
                      </View>
