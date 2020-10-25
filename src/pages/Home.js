@@ -4,12 +4,18 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { FlatGrid } from 'react-native-super-grid';
+import Carousel from 'react-native-snap-carousel';
+// import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import { fetchCategory } from '../redux/actions/menu';
 
 import gambar from '../assets/img/gambar.jpg';
-// import Icon from 'react-native-vector-icons/FontAwesome5';
 import userIcon from '../assets/icon/user.png';
+import carouselImg1 from '../assets/img/carousel1.jpg';
+import carouselImg2 from '../assets/img/carousel2.jpg';
+import carouselImg3 from '../assets/img/carousel3.jpg';
+import carouselImg4 from '../assets/img/carousel4.jpg';
+import carouselImg5 from '../assets/img/carousel5.jpg';
 
 const Home = ({ route, navigation }) => {
    // const localhost = '192.168.1.137';
@@ -25,6 +31,52 @@ const Home = ({ route, navigation }) => {
 
    const stateCategory = useSelector(state => state.menu.category);
    const stateAuth = useSelector(state => state.auth.user);
+
+   const [carouselItems, setCarouselItemscarouselItems] = useState(
+      [
+         {
+            title: 'Item 1',
+            text: 'Text 1',
+            image: carouselImg1,
+         },
+         {
+            title: 'Item 2',
+            text: 'Text 2',
+            image: carouselImg2,
+         },
+         {
+            title: 'Item 3',
+            text: 'Text 3',
+            image: carouselImg3,
+         },
+         {
+            title: 'Item 4',
+            text: 'Text 4',
+            image: carouselImg4,
+         },
+         {
+            title: 'Item 5',
+            text: 'Text 5',
+            image: carouselImg5,
+         },
+      ]
+   );
+   const [activeIndex, setActiveIndex] = useState(0);
+
+   const renderItemCarousel = ({ item }) => {
+      return (
+         <View
+            style={{
+               backgroundColor: 'white',
+               height: 150,
+               width: 300,
+               marginTop: 20,
+            }}
+         >
+            <Image source={item.image} style={{ height: '100%', width: '100%', resizeMode: 'center', borderRadius: 5, }} />
+         </View>
+      );
+   }
 
    return (
       <View style={style.container}>
@@ -51,8 +103,19 @@ const Home = ({ route, navigation }) => {
          </View>
          <View style={style.content}>
             <View style={style.carousel}>
-               <Text style={style.carouselText}>Tempat Carousel</Text>
-               <Text style={style.carouselText2}>(Coming soon)</Text>
+               {/* <Text style={style.carouselText}>Tempat Carousel</Text>
+               <Text style={style.carouselText2}>(Coming soon)</Text> */}
+               <Carousel
+                  layout={"default"}
+                  ref={(ref) => (carousel = ref)}
+                  data={carouselItems}
+                  sliderWidth={350}
+                  itemWidth={300}
+                  renderItem={renderItemCarousel}
+                  onSnapToItem={(index) => setActiveIndex(index)}
+                  loop={true}
+                  autoplay={true}
+               />
             </View>
             <View style={style.listCategoryContainer} >
                <Text style={style.textCategory}>Category</Text>
@@ -112,9 +175,10 @@ const style = StyleSheet.create({
       // marginHorizontal: 10,
    },
    carousel: {
-      backgroundColor: '#e74c3c',
       flex: 2,
+      flexDirection: 'row',
       justifyContent: 'center',
+      paddingVertical: 10,
    },
    carouselText: {
       color: '#fff',
