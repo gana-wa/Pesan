@@ -42,7 +42,7 @@ const Login = ({ navigation }) => {
          <View style={styles.containerLogin}>
             <Pressable onPress={() => navigation.navigate('Register')}>
                <View style={styles.imageLoginContainer}>
-                  <Text style={{ color: '#fff' }}>Image place</Text>
+                  <Text style={{ color: '#fff' }}>(Register)</Text>
                </View>
             </Pressable>
             <Text style={styles.loginBanerText}>Silahkan masuk dengan nomer HP-mu yang terdaftar</Text>

@@ -1,7 +1,7 @@
 import Axios from 'axios';
 // import Config from 'react-native-config';
 
-// const localhost = 'http://192.168.1.13:8000';
+// const localhost = 'http://192.168.1.21:8000';
 const localhost = 'http://192.168.43.42:8000';
 
 export const fetchCategory = () => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Content, List, ListItem, Text } from 'native-base';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { LoggedOut } from '../redux/actions/auth';
 import { clearCartCreator } from '../redux/actions/menu';
@@ -28,6 +28,25 @@ const Profile = ({ navigation }) => {
     const handleLogOut = () => {
         setLogOut(true);
     };
+
+    const alertLogOut = () => {
+        Alert.alert(
+            'Logout',
+            'Anda akan keluar?',
+            [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('canceled'),
+                    // style: "cancel",
+                },
+                {
+                    text: 'OK',
+                    onPress: () => handleLogOut(),
+                },
+            ],
+            { cancelable: true } //cancel when press outside modal
+        );
+    };
     return (
         <Container>
             <View style={styles.profileContainer}>
@@ -50,7 +69,7 @@ const Profile = ({ navigation }) => {
                     </ListItem> */}
                 </List>
             </Content>
-            <Pressable onPress={handleLogOut}>
+            <Pressable onPress={alertLogOut}>
                 <View style={styles.buttonLogout}>
                     <Text style={styles.buttonLogoutText}>Keluar</Text>
                 </View>

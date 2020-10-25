@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import editIcon from '../assets/icon/edit.png';
 import deleteIcon from '../assets/icon/delete.png';
 
-const Item = ({ item, style }) => {
+const Item = ({ navigation, item, style }) => {
    const stateMenu = useSelector(state => state.menu);
    const stateAuth = useSelector(state => state.auth.user);
 
@@ -18,8 +18,9 @@ const Item = ({ item, style }) => {
    });
 
    const localhost = '192.168.43.42';
+   // const localhost = '192.168.1.21';
 
-   const alerts = () => {
+   const alertDelete = () => {
       Alert.alert(
          'Hapus Menu',
          'Menu ini akan dihapus?',
@@ -34,7 +35,7 @@ const Item = ({ item, style }) => {
                onPress: () => dispatch(deleteMenu(item.product_id)),
             },
          ],
-         { cancelable: false }
+         { cancelable: true } //cancel when press outside modal
       );
    };
 
@@ -45,15 +46,14 @@ const Item = ({ item, style }) => {
             <View style={styles.titleWrapper}>
                <Text style={styles.title}>{item.product_name}</Text>
                <Text style={styles.desc}>Deskripsi produk. Ini hanyalah sebagai contoh deskripsi produk</Text>
-               <Text style={styles.price}>{`Rp ${item.price.toLocaleString()}`}</Text>
+               <Text style={styles.price}>{`Rp ${item.price.toLocaleString('id-ID')}`}</Text>
                <View style={styles.buttonContainer}>
                   {Number(stateAuth.level_id) === 1 ? (
                      <View style={styles.buttonAdminContainer} >
-                        <Pressable style={styles.buttonEditDelete}>
+                        <Pressable style={styles.buttonEditDelete} onPress={() => navigation.navigate('EditMenu')}>
                            <Image source={editIcon} style={{ width: 20, height: 20 }} />
                         </Pressable>
-                        {/* <Text style={styles.CounterText}>{stateMenu.carts[index].quantity}</Text> */}
-                        <Pressable style={styles.buttonEditDelete} onPress={alerts}>
+                        <Pressable style={styles.buttonEditDelete} onPress={alertDelete}>
                            <Image source={deleteIcon} style={{ width: 20, height: 20 }} />
                         </Pressable>
                      </View>
@@ -119,6 +119,7 @@ const Menu = ({ navigation, route }) => {
          <Item
             item={item}
             onPress={() => setSelectedId(item.product_id)}
+            navigation={navigation}
          />
       );
    };

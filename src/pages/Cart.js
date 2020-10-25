@@ -45,7 +45,8 @@ const Cart = ({ navigation }) => {
    let delivFee = 10000;
 
    let totalAll = stateMenu.carts.reduce((total, item) => {
-      return total + (item.price * item.quantity * 0.1) + (item.price * item.quantity) + delivFee;
+      // return total + (item.price * item.quantity * 0.1) + (item.price * item.quantity) + delivFee;
+      return total + (item.price * item.quantity * 0.1) + (item.price * item.quantity);
    }, 0);
 
    const handleInsertOrder = () => {
@@ -95,13 +96,13 @@ const Cart = ({ navigation }) => {
             data={stateMenu.carts}
             ListHeaderComponent={
                <>
-                  <View style={styles.addressContainer}>
-                     <Text style={styles.labelAddres}>Alamat Pengiriman</Text>
+                  {/* <View style={styles.addressContainer}>
+                  <Text style={styles.labelAddres}>Alamat Pengiriman</Text>
                      <TextInput
                         placeholder="Masukan alamat pengiriman"
                         style={styles.addressInput}
                      />
-                  </View>
+                  </View> */}
                   <View style={styles.cartContainer}>
                      <Text style={styles.labelContainer}>Pesanan</Text>
                   </View>
@@ -116,12 +117,12 @@ const Cart = ({ navigation }) => {
                      <View>
                         <Text style={styles.priceLabel}>Price</Text>
                         <Text style={styles.priceLabel}>Fee 10%</Text>
-                        <Text style={styles.priceLabel}>Delivery Fee</Text>
+                        {/* <Text style={styles.priceLabel}>Delivery Fee</Text> */}
                      </View>
                      <View>
                         <Text style={styles.priceText}>{totalPrice.toLocaleString()}</Text>
                         <Text style={styles.priceText}>{(totalPrice * 0.1).toLocaleString()}</Text>
-                        <Text style={styles.priceText}>{delivFee.toLocaleString()}</Text>
+                        {/* <Text style={styles.priceText}>{delivFee.toLocaleString()}</Text> */}
                      </View>
                   </View>
                   <View style={styles.priceContainer}>
