@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-   View, Text, StyleSheet, TextInput, Image, Dimensions, TouchableOpacity, Pressable
+   View, Text, StyleSheet, TextInput, Image, Dimensions, TouchableOpacity, Pressable, FlatList
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { FlatGrid } from 'react-native-super-grid';
@@ -10,6 +10,7 @@ import Carousel from 'react-native-snap-carousel';
 import { fetchCategory } from '../redux/actions/menu';
 
 import gambar from '../assets/img/gambar.jpg';
+import allCategory from '../assets/img/allCategory.jpg';
 import userIcon from '../assets/icon/user.png';
 import carouselImg1 from '../assets/img/carousel1.jpg';
 import carouselImg2 from '../assets/img/carousel2.jpg';
@@ -120,23 +121,53 @@ const Home = ({ route, navigation }) => {
             <View style={style.listCategoryContainer} >
                <Text style={style.textCategory}>Category</Text>
                <TouchableOpacity onPress={() => navigation.navigate('Menu', { categoryId: null, categoryName: 'All Menu' })}>
-                  <View style={style.cardCategory}>
-                     <Image source={gambar} style={style.cardCategoryImg} />
+                  <View style={style.cardAllCategory}>
+                     <Image source={allCategory} style={style.cardAllCategoryImg} />
                      <Text style={style.cardCategoryText}>All Category</Text>
                   </View>
                </TouchableOpacity>
-               <FlatGrid
-                  itemDimension={130}
+               {/* <FlatList
                   data={stateCategory}
+                  ListHeaderComponent={() => (
+                     
+                  )}
+
                   renderItem={({ item }) => (
                      <TouchableOpacity onPress={() => navigation.navigate('Menu', { categoryId: item.category_id, categoryName: item.category_name })}>
-                        <View style={style.cardCategory}>
+                        <View style={style.cardAllCategory}>
                            <Image source={{ uri: item.image.replace('localhost', localhost) }} style={style.cardCategoryImg} />
                            <Text style={style.cardCategoryText}>{item.category_name}</Text>
                         </View>
                      </TouchableOpacity>
                   )}
-               />
+                  keyExtractor={item => item.category_id.toString()}
+               /> */}
+               <View style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                  backgroundColor: 'yellow',
+               }}>
+                  {stateCategory.map((item) => (
+                     <TouchableOpacity key={item.category_id} onPress={() => navigation.navigate('Menu', { categoryId: item.category_id, categoryName: item.category_name })}>
+                        <View style={style.cardCategory}>
+                           <Image source={{ uri: item.image.replace('localhost', localhost) }} style={style.cardCategoryImg} />
+                           <Text style={style.cardCategoryText}>{item.category_name}</Text>
+                        </View>
+                     </TouchableOpacity>
+                  ))}
+               </View>
+               {/* <FlatGrid
+                  itemDimension={130}
+                  data={stateCategory}
+                  renderItem={({ item }) => (
+                     <TouchableOpacity onPress={() => navigation.navigate('Menu', { categoryId: item.category_id, categoryName: item.category_name })}>
+                        <View style={style.cardCategory}>
+                           <Image source={{ uri: item.image.replace('localhost', localhost) }} style={style.cardCategory} />
+                           <Text style={style.cardCategoryText}>{item.category_name}</Text>
+                        </View>
+                     </TouchableOpacity>
+                  )}
+               /> */}
             </View>
             {/* <View style={{ backgroundColor: '#2ecc71', flex: 2 }} /> */}
             {/* <View style={{ backgroundColor: '#2980b9', flex: 1 }} /> */}
@@ -192,16 +223,34 @@ const style = StyleSheet.create({
       fontStyle: 'italic',
    },
    cardCategory: {
+      width: '100%',
+      // height: '100%',
+      alignItems: 'center',
+      // borderRadius: 8,
+   },
+   cardCategoryImg: {
+      height: 180,
+      width: 180,
+      // borderRadius: 8,
+   },
+   cardCategoryText: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      position: 'absolute',
+      bottom: 0,
+      color: 'white',
+      textShadowColor: 'gray',
+      textShadowRadius: 5,
+   },
+   cardAllCategory: {
       alignItems: 'center',
       borderRadius: 8,
    },
-   cardCategoryImg: {
-      height: 130,
-      width: 130,
-      borderRadius: 8,
-   },
-   cardCategoryText: {
-      fontSize: 14,
+   cardAllCategoryImg: {
+      height: 180,
+      width: '100%',
+      resizeMode: 'cover',
+      // borderRadius: 8,
    },
    listCategoryContainer: {
       flex: 5,

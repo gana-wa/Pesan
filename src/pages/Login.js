@@ -22,7 +22,10 @@ const Login = ({ navigation }) => {
          setLogIn(false);
       }
       if (isLoggedIn) {
-         return navigation.navigate('Home');
+         return navigation.reset({
+            index: 0,
+            routes: [{ name: 'Home' }],
+         });
       }
       setStatus(msg);
    }, [formRespone, dispatch, logIn, msg, isLoggedIn, navigation]);
